@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: reborn_postgres
+    environment:
+      POSTGRES_USER: reborn_user
+      POSTGRES_PASSWORD: reborn_pass
+      POSTGRES_DB: reborn_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - reborn_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: reborn_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - reborn_network
+
+  mongodb:
+    image: mongo:6
+    container_name: reborn_mongodb
+    environment:
+      MONGO_INITDB_DATABASE: rebornandco_logs
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - reborn_network
+    command: mongod --logpath /var/log/mongodb/mongod.log
+
+volumes:
+  postgres_data:
+  mongodb_data:
+
+networks:
+  reborn_network:
+    driver: bridge 
