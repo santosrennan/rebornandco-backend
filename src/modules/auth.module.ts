@@ -27,7 +27,7 @@ import { CreateUserUseCase } from '../application/use-cases/auth/create-user.use
 import { LoginUserUseCase } from '../application/use-cases/auth/login-user.use-case'
 
 // Controllers
-import { AuthController } from '../interfaces/http/auth.controller'
+import { AuthController } from '../controllers/auth.controller'
 
 @Module({
   imports: [

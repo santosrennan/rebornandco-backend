@@ -71,4 +71,4 @@ export class CreateBirthCertificateDto {
   @IsOptional()
   @IsString()
   state?: string
-} 
+}

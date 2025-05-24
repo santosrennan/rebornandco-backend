@@ -127,4 +127,4 @@ export interface AppConfiguration {
   readonly security: SecurityConfig
   readonly thirdParty: ThirdPartyConfig
   readonly monitoring: MonitoringConfig
-} 
+}

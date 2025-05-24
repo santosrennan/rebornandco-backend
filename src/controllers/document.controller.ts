@@ -16,11 +16,11 @@ import {
   ApiBearerAuth,
 } from '@nestjs/swagger'
 import { Response } from 'express'
-import { JwtAuthGuard } from '../../infrastructure/auth/jwt-auth.guard'
-import { GetTemplatesUseCase } from '../../application/use-cases/document/get-templates.use-case'
-import { CreateBirthCertificateUseCase } from '../../application/use-cases/document/create-birth-certificate.use-case'
-import { CreateBirthCertificateDto } from '../../application/dto/create-birth-certificate.dto'
-import { DocumentType } from '../../domain/enums/document-type.enum'
+import { JwtAuthGuard } from '../infrastructure/auth/jwt-auth.guard'
+import { GetTemplatesUseCase } from '../application/use-cases/document/get-templates.use-case'
+import { CreateBirthCertificateUseCase } from '../application/use-cases/document/create-birth-certificate.use-case'
+import { CreateBirthCertificateDto } from '../application/dto/create-birth-certificate.dto'
+import { DocumentType } from '../domain/enums/document-type.enum'
 
 @ApiTags('documents')
 @Controller('documents')
@@ -83,4 +83,4 @@ export class DocumentController {
 
     return res.send(result.file.buffer)
   }
-} 
+}

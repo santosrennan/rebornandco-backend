@@ -275,4 +275,4 @@ export const BIRTH_CERTIFICATE_TEMPLATES: DocumentTemplate[] = [
       },
     ],
   ),
-] 
+]

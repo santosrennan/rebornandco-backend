@@ -68,11 +68,13 @@ export class MonitoringController {
   async getHealthStatus() {
     const errorLogs = await this.loggerService.findErrorLogs(100)
     const recentAlerts = this.alertService.getRecentAlerts(10)
-    
+
     // Calcular métricas de saúde
-    const criticalErrors = errorLogs.filter(log => log.level === 'critical')
-    const criticalAlerts = recentAlerts.filter(alert => alert.severity === 'CRITICAL')
-    
+    const criticalErrors = errorLogs.filter((log) => log.level === 'critical')
+    const criticalAlerts = recentAlerts.filter(
+      (alert) => alert.severity === 'CRITICAL',
+    )
+
     let status = 'healthy'
     let score = 100
 
@@ -125,13 +127,17 @@ export class MonitoringController {
 
     if (status === 'critical') {
       recommendations.push('🚨 AÇÃO IMEDIATA NECESSÁRIA')
-      
+
       if (metrics.criticalErrors > 0) {
-        recommendations.push(`Investigar ${metrics.criticalErrors} erros críticos`)
+        recommendations.push(
+          `Investigar ${metrics.criticalErrors} erros críticos`,
+        )
       }
-      
+
       if (metrics.criticalAlerts > 0) {
-        recommendations.push(`Resolver ${metrics.criticalAlerts} alertas críticos`)
+        recommendations.push(
+          `Resolver ${metrics.criticalAlerts} alertas críticos`,
+        )
       }
     }
 
@@ -152,4 +158,4 @@ export class MonitoringController {
 
     return recommendations
   }
-} 
+}

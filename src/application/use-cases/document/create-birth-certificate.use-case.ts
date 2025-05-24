@@ -108,4 +108,4 @@ export class CreateBirthCertificateUseCase {
       throw error
     }
   }
-} 
+}

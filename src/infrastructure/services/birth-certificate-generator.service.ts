@@ -1,5 +1,10 @@
 import { Injectable } from '@nestjs/common'
-import { createCanvas, loadImage, CanvasRenderingContext2D, CanvasGradient } from 'canvas'
+import {
+  createCanvas,
+  loadImage,
+  CanvasRenderingContext2D,
+  CanvasGradient,
+} from 'canvas'
 import { DocumentTemplate } from '../../domain/entities/document-template.entity'
 import { Reborn } from '../../domain/entities/reborn.entity'
 import { DocumentFormat } from '../../domain/enums/document-format.enum'
@@ -90,15 +95,21 @@ export class BirthCertificateGeneratorService {
     ctx.fillRect(0, 0, width, height)
 
     // Adicionar bordas decorativas
-    ctx.strokeStyle = template.name.includes('Rosa') ? '#D8BFD8' : 
-                      template.name.includes('Azul') ? '#4682B4' : '#DAA520'
+    ctx.strokeStyle = template.name.includes('Rosa')
+      ? '#D8BFD8'
+      : template.name.includes('Azul')
+        ? '#4682B4'
+        : '#DAA520'
     ctx.lineWidth = 3
     ctx.strokeRect(20, 20, width - 40, height - 40)
 
     // Adicionar título "CERTIDÃO DE NASCIMENTO"
     ctx.font = 'bold 32px serif'
-    ctx.fillStyle = template.name.includes('Rosa') ? '#8B4513' : 
-                    template.name.includes('Azul') ? '#1E3A8A' : '#B8860B'
+    ctx.fillStyle = template.name.includes('Rosa')
+      ? '#8B4513'
+      : template.name.includes('Azul')
+        ? '#1E3A8A'
+        : '#B8860B'
     ctx.textAlign = 'center'
     ctx.fillText('CERTIDÃO DE NASCIMENTO', width / 2, 80)
 

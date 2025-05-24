@@ -44,4 +44,4 @@ export class DocumentTemplateEntity {
 
   @CreateDateColumn()
   createdAt: Date
-} 
+}

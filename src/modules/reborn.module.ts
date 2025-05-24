@@ -18,13 +18,10 @@ import { CreateRebornUseCase } from '../application/use-cases/reborn/create-rebo
 import { GetUserRebornsUseCase } from '../application/use-cases/reborn/get-user-reborns.use-case'
 
 // Controllers
-import { RebornController } from '../interfaces/http/reborn.controller'
+import { RebornController } from '../controllers/reborn.controller'
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([RebornEntity]),
-    MonitoringModule,
-  ],
+  imports: [TypeOrmModule.forFeature([RebornEntity]), MonitoringModule],
   controllers: [RebornController],
   providers: [
     // Repositories

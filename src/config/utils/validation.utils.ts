@@ -3,7 +3,6 @@
  * Provides type-safe validation and transformation for environment variables
  */
 
-
 export class ConfigurationError extends Error {
   constructor(
     public readonly field: string,
@@ -129,11 +128,11 @@ export function getOptionalBoolean(
   defaultValue: boolean,
 ): boolean {
   if (!value) return defaultValue
-  
+
   const normalizedValue = value.toLowerCase().trim()
   if (['true', '1', 'yes', 'on'].includes(normalizedValue)) return true
   if (['false', '0', 'no', 'off'].includes(normalizedValue)) return false
-  
+
   return defaultValue
 }
 
@@ -177,7 +176,7 @@ export function getOptionalEnum<T extends Record<string, string>>(
   defaultValue: T[keyof T],
 ): T[keyof T] {
   if (!value) return defaultValue
-  
+
   const enumValues = Object.values(enumObject)
   return enumValues.includes(value as T[keyof T])
     ? (value as T[keyof T])
@@ -192,19 +191,19 @@ export function getStringArray(
   defaultValue: string[] = [],
 ): string[] {
   if (!value || value.trim() === '') return defaultValue
-  
+
   return value
     .split(',')
-    .map(item => item.trim())
-    .filter(item => item.length > 0)
+    .map((item) => item.trim())
+    .filter((item) => item.length > 0)
 }
 
 /**
  * Validates that all required environment variables are present
  */
 export function validateRequiredEnvVars(requiredVars: string[]): void {
-  const missing = requiredVars.filter(varName => !process.env[varName])
-  
+  const missing = requiredVars.filter((varName) => !process.env[varName])
+
   if (missing.length > 0) {
     throw new ConfigurationError(
       'ENVIRONMENT_VARIABLES',
@@ -228,16 +227,19 @@ export function getSecretOrGenerate(
   }
 
   // Generate a random secret for any environment if not provided
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*'
+  const chars =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*'
   let result = ''
   for (let i = 0; i < length; i++) {
     result += chars.charAt(Math.floor(Math.random() * chars.length))
   }
-  
+
   // Only warn in development
   if (process.env.NODE_ENV === 'development') {
-    console.warn(`⚠️  Generated ${key} for development. Set it explicitly in production!`)
+    console.warn(
+      `⚠️  Generated ${key} for development. Set it explicitly in production!`,
+    )
   }
-  
+
   return result
-} 
+}

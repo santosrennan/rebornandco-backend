@@ -37,7 +37,7 @@ src/
 ├── 📁 domain/              # Entidades e regras de negócio
 ├── 📁 application/         # Casos de uso e serviços
 ├── 📁 infrastructure/      # Banco, auth, security, monitoring
-├── 📁 interfaces/          # Controllers e DTOs
+├── 📁 controllers/         # Controllers HTTP da API
 ├── 📁 config/             # Configurações
 ├── 📁 modules/            # Módulos NestJS
 └── 📁 shared/             # Código compartilhado

@@ -79,4 +79,4 @@ export class DocumentRepository implements IDocumentRepository {
       updatedAt: domain.updatedAt,
     }
   }
-} 
+}

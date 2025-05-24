@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { DocumentController } from '../interfaces/http/document.controller'
+import { DocumentController } from '../controllers/document.controller'
 import { DocumentEntity } from '../infrastructure/orm/document.entity'
 import { DocumentTemplateEntity } from '../infrastructure/orm/document-template.entity'
 import { DocumentRepository } from '../infrastructure/orm/document.repository'
@@ -53,4 +53,4 @@ import { RebornRepository } from '../infrastructure/orm/reborn.repository'
     BirthCertificateGeneratorService,
   ],
 })
-export class DocumentModule {} 
+export class DocumentModule {}

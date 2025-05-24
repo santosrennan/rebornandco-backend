@@ -188,7 +188,10 @@ export class LoggerService {
       .exec()
   }
 
-  async findLogsByUser(userId: string, limit: number = 100): Promise<LogDocument[]> {
+  async findLogsByUser(
+    userId: string,
+    limit: number = 100,
+  ): Promise<LogDocument[]> {
     return this.logModel
       .find({ userId })
       .sort({ timestamp: -1 })
@@ -196,7 +199,10 @@ export class LoggerService {
       .exec()
   }
 
-  async findLogsByContext(context: LogContext, limit: number = 100): Promise<LogDocument[]> {
+  async findLogsByContext(
+    context: LogContext,
+    limit: number = 100,
+  ): Promise<LogDocument[]> {
     return this.logModel
       .find({ context })
       .sort({ timestamp: -1 })

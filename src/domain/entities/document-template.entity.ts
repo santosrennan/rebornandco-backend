@@ -46,4 +46,4 @@ export class DocumentTemplate {
   isAvailable(): boolean {
     return this.isActive
   }
-} 
+}

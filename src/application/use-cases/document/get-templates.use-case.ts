@@ -17,4 +17,4 @@ export class GetTemplatesUseCase {
     }
     return await this.templateRepository.findActive()
   }
-} 
+}

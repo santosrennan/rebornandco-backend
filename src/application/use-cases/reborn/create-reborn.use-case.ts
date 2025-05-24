@@ -106,7 +106,8 @@ export class CreateRebornUseCase {
           name,
           error: {
             name: error instanceof Error ? error.name : 'Unknown',
-            message: error instanceof Error ? error.message : 'Erro desconhecido',
+            message:
+              error instanceof Error ? error.message : 'Erro desconhecido',
           },
         },
         { userId },

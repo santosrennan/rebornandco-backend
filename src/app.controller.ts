@@ -8,9 +8,10 @@ import { Public } from 'src/shared'
 export class AppController {
   @Public()
   @Get('health')
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Health check da aplicação',
-    description: 'Verifica o status básico da aplicação. Não requer autenticação mas está protegida por rate limiting.'
+    description:
+      'Verifica o status básico da aplicação. Não requer autenticação mas está protegida por rate limiting.',
   })
   @ApiResponse({
     status: 200,
@@ -43,7 +44,10 @@ export class AppController {
       type: 'object',
       properties: {
         statusCode: { type: 'number', example: 429 },
-        message: { type: 'string', example: 'Muitas tentativas. Tente novamente mais tarde' },
+        message: {
+          type: 'string',
+          example: 'Muitas tentativas. Tente novamente mais tarde',
+        },
         error: { type: 'string', example: 'Too Many Requests' },
       },
     },
@@ -52,7 +56,7 @@ export class AppController {
     try {
       const isHealthy = await this.performInternalHealthChecks()
       const timestamp = new Date().toISOString()
-      
+
       if (isHealthy) {
         return res.status(HttpStatus.OK).json({
           status: 'ok',
@@ -68,7 +72,7 @@ export class AppController {
       }
     } catch (error) {
       const timestamp = new Date().toISOString()
-      
+
       // Log detalhado internamente (não expor ao cliente)
       console.error('🚨 Health check failed', {
         error: error instanceof Error ? error.message : 'Unknown error',
@@ -87,9 +91,9 @@ export class AppController {
 
   @Public()
   @Get()
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Informações básicas da API',
-    description: 'Endpoint raiz com informações mínimas da API'
+    description: 'Endpoint raiz com informações mínimas da API',
   })
   @ApiResponse({
     status: 200,
@@ -115,7 +119,7 @@ export class AppController {
     try {
       const uptime = process.uptime()
       const memUsage = process.memoryUsage()
-      
+
       // Verificações internas (logs detalhados apenas internamente)
       const checks = {
         uptime: uptime > 0,
@@ -126,7 +130,7 @@ export class AppController {
           rss: Math.round(memUsage.rss / 1024 / 1024),
           heapUsed: Math.round(memUsage.heapUsed / 1024 / 1024),
           heapTotal: Math.round(memUsage.heapTotal / 1024 / 1024),
-        }
+        },
       }
 
       // Log detalhado apenas internamente
@@ -136,7 +140,7 @@ export class AppController {
         memory: `${checks.memory.heapUsed}MB/${checks.memory.heapTotal}MB`,
         pid: checks.pid,
         nodeVersion: checks.nodeVersion,
-        status: checks.uptime && checks.memoryHealthy ? 'healthy' : 'degraded'
+        status: checks.uptime && checks.memoryHealthy ? 'healthy' : 'degraded',
       })
 
       return checks.uptime && checks.memoryHealthy

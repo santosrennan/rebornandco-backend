@@ -58,4 +58,4 @@ export async function seedTemplates() {
 
 if (require.main === module) {
   seedTemplates()
-} 
+}

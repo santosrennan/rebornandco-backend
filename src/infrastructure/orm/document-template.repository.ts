@@ -71,4 +71,4 @@ export class DocumentTemplateRepository implements IDocumentTemplateRepository {
       createdAt: domain.createdAt,
     }
   }
-} 
+}

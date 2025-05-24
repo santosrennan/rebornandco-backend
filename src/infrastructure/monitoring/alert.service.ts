@@ -37,7 +37,8 @@ export class AlertService {
         id: 'critical-errors',
         name: 'Erros Críticos',
         description: 'Detecta erros críticos no sistema',
-        condition: (logs) => logs.some(log => log.level === LogLevel.CRITICAL),
+        condition: (logs) =>
+          logs.some((log) => log.level === LogLevel.CRITICAL),
         severity: 'CRITICAL',
         enabled: true,
       },
@@ -46,9 +47,10 @@ export class AlertService {
         name: 'Múltiplas Falhas de Login',
         description: 'Detecta múltiplas tentativas de login falhadas',
         condition: (logs) => {
-          const loginFailures = logs.filter(log => 
-            log.context === LogContext.AUTH && 
-            log.message.includes('senha incorreta')
+          const loginFailures = logs.filter(
+            (log) =>
+              log.context === LogContext.AUTH &&
+              log.message.includes('senha incorreta'),
           )
           return loginFailures.length >= 5
         },
@@ -60,8 +62,9 @@ export class AlertService {
         name: 'Requisições Lentas',
         description: 'Detecta muitas requisições lentas',
         condition: (logs) => {
-          const slowRequests = logs.filter(log => 
-            log.details?.responseTime && log.details.responseTime > 5000
+          const slowRequests = logs.filter(
+            (log) =>
+              log.details?.responseTime && log.details.responseTime > 5000,
           )
           return slowRequests.length >= 10
         },
@@ -73,9 +76,9 @@ export class AlertService {
         name: 'Alta Taxa de Erros',
         description: 'Detecta alta taxa de erros HTTP',
         condition: (logs) => {
-          const httpErrors = logs.filter(log => 
-            log.context === LogContext.API && 
-            log.details?.statusCode >= 500
+          const httpErrors = logs.filter(
+            (log) =>
+              log.context === LogContext.API && log.details?.statusCode >= 500,
           )
           return httpErrors.length >= 20
         },
@@ -112,12 +115,12 @@ export class AlertService {
 
   private async triggerAlert(rule: AlertRule, logs: any[]): Promise<void> {
     const alertId = `${rule.id}-${Date.now()}`
-    
+
     // Verificar se já enviamos este alerta recentemente (debounce)
     const recentSimilarAlert = this.recentAlerts.find(
-      alert => 
-        alert.ruleId === rule.id && 
-        Date.now() - alert.timestamp.getTime() < 10 * 60 * 1000 // 10 minutos
+      (alert) =>
+        alert.ruleId === rule.id &&
+        Date.now() - alert.timestamp.getTime() < 10 * 60 * 1000, // 10 minutos
     )
 
     if (recentSimilarAlert) {
@@ -140,7 +143,7 @@ export class AlertService {
 
     // Adicionar à lista de alertas recentes
     this.recentAlerts.push(alert)
-    
+
     // Limpar alertas antigos (manter apenas últimos 100)
     if (this.recentAlerts.length > 100) {
       this.recentAlerts.splice(0, this.recentAlerts.length - 100)
@@ -161,16 +164,17 @@ export class AlertService {
     // Por enquanto, apenas log no console
     // Aqui poderíamos integrar com:
     // - Slack
-    // - Discord  
+    // - Discord
     // - Email
     // - SMS
     // - PagerDuty
-    
+
     const emoji = this.getSeverityEmoji(alert.severity)
-    const message = `${emoji} ${alert.message}\n` +
-                   `Severidade: ${alert.severity}\n` +
-                   `Logs afetados: ${alert.details.affectedLogs}\n` +
-                   `Horário: ${alert.timestamp.toLocaleString('pt-BR')}`
+    const message =
+      `${emoji} ${alert.message}\n` +
+      `Severidade: ${alert.severity}\n` +
+      `Logs afetados: ${alert.details.affectedLogs}\n` +
+      `Horário: ${alert.timestamp.toLocaleString('pt-BR')}`
 
     console.error('🔔 NOTIFICAÇÃO DE ALERTA:')
     console.error(message)
@@ -184,9 +188,9 @@ export class AlertService {
   private getSeverityEmoji(severity: string): string {
     const emojis = {
       LOW: '🟡',
-      MEDIUM: '🟠', 
+      MEDIUM: '🟠',
       HIGH: '🔴',
-      CRITICAL: '💀'
+      CRITICAL: '💀',
     }
     return emojis[severity] || '⚠️'
   }
@@ -197,28 +201,28 @@ export class AlertService {
   }
 
   removeRule(ruleId: string): void {
-    const index = this.alertRules.findIndex(rule => rule.id === ruleId)
+    const index = this.alertRules.findIndex((rule) => rule.id === ruleId)
     if (index > -1) {
       this.alertRules.splice(index, 1)
     }
   }
 
   enableRule(ruleId: string): void {
-    const rule = this.alertRules.find(rule => rule.id === ruleId)
+    const rule = this.alertRules.find((rule) => rule.id === ruleId)
     if (rule) {
       rule.enabled = true
     }
   }
 
   disableRule(ruleId: string): void {
-    const rule = this.alertRules.find(rule => rule.id === ruleId)
+    const rule = this.alertRules.find((rule) => rule.id === ruleId)
     if (rule) {
       rule.enabled = false
     }
   }
 
   getActiveRules(): AlertRule[] {
-    return this.alertRules.filter(rule => rule.enabled)
+    return this.alertRules.filter((rule) => rule.enabled)
   }
 
   getRecentAlerts(limit: number = 50): Alert[] {
@@ -226,4 +230,4 @@ export class AlertService {
       .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
       .slice(0, limit)
   }
-} 
+}

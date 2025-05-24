@@ -7,4 +7,4 @@ export interface TextPlaceholder {
   color: string // '#000000'
   maxWidth?: number // Largura máxima
   textAlign?: 'left' | 'center' | 'right'
-} 
+}

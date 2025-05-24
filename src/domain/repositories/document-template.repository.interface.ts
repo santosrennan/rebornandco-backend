@@ -6,4 +6,4 @@ export interface IDocumentTemplateRepository {
   findByType(type: DocumentType): Promise<DocumentTemplate[]>
   findActive(): Promise<DocumentTemplate[]>
   save(template: DocumentTemplate): Promise<DocumentTemplate>
-} 
+}

@@ -6,11 +6,9 @@ import { AlertService } from '../infrastructure/monitoring/alert.service'
 import { MonitoringController } from './monitoring.controller'
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([{ name: 'Log', schema: LogSchema }]),
-  ],
+  imports: [MongooseModule.forFeature([{ name: 'Log', schema: LogSchema }])],
   controllers: [MonitoringController],
   providers: [LoggerService, AlertService],
   exports: [LoggerService, AlertService],
 })
-export class MonitoringModule {} 
+export class MonitoringModule {}

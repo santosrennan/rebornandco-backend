@@ -27,7 +27,7 @@ export class SecurityThrottlerGuard extends ThrottlerGuard {
     context: ExecutionContext,
   ): Promise<void> {
     const request = context.switchToHttp().getRequest()
-    
+
     // Log detalhado para monitoramento
     console.error('🚨 Rate limit exceeded', {
       ip: request.ip,
@@ -38,7 +38,7 @@ export class SecurityThrottlerGuard extends ThrottlerGuard {
       headers: {
         'x-forwarded-for': request.get('x-forwarded-for'),
         'x-real-ip': request.get('x-real-ip'),
-      }
+      },
     })
 
     throw new HttpException(

@@ -30,20 +30,21 @@ export class LoggingInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const request = context.switchToHttp().getRequest<RequestWithUser>()
     const response = context.switchToHttp().getResponse<Response>()
-    
+
     // Gerar Correlation ID
-    const correlationId = (request.headers[CORRELATION_ID_HEADER] as string) || uuidv4()
+    const correlationId =
+      (request.headers[CORRELATION_ID_HEADER] as string) || uuidv4()
     request.correlationId = correlationId
     response.setHeader(CORRELATION_ID_HEADER, correlationId)
-    
+
     // Marcar início da requisição
     const startTime = Date.now()
     request.startTime = startTime
-    
+
     const { method, url, ip, headers } = request
     const userAgent = headers['user-agent'] || 'Unknown'
     const userId = request.user?.id
-    
+
     // Log da requisição iniciada
     const requestDetails = {
       correlationId,
@@ -206,4 +207,4 @@ export class LoggingInterceptor implements NestInterceptor {
     const healthRoutes = ['/health', '/ping', '/status', '/metrics']
     return healthRoutes.some((route) => url.includes(route))
   }
-} 
+}
